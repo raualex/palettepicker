@@ -1,0 +1,24 @@
+{
+  "name": "palette-picker",
+  "version": "1.0.0",
+  "description": "![Wireframes](https://github.com/raualex/palettepicker/blob/master/Images/Palette-Picker-wireframe.png)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raualex/palettepicker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raualex/palettepicker/issues"
+  },
+  "homepage": "https://github.com/raualex/palettepicker#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
