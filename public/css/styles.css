@@ -10,3 +10,7 @@
   height: 40px;
   width: 40px;
 }
+
+.locked {
+  background-image: url("./../Images/001-padlock.svg");
+}
