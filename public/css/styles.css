@@ -1,5 +1,20 @@
+body {
+  margin: 0;
+}
+
+button:focus {
+  outline: none;
+}
+
 .color-container {
+  align-items: center;
   border: solid 4px #000;
+  display: flex;
+  height: 100px;
+  justify-content: flex-end;
+  margin: 25px;
+  padding-right: 20px;
+  width: 50%;
 }
 
 .lock-btn {
@@ -9,4 +24,8 @@
   border: transparent;
   height: 40px;
   width: 40px;
+}
+
+.locked {
+  background-image: url("./../Images/001-padlock.svg");
 }
