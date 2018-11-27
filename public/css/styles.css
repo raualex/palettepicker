@@ -1,0 +1,12 @@
+.color-container {
+  border: solid 4px #000;
+}
+
+.lock-btn {
+  background-image: url("./../Images/002-padlock-unlock.svg");
+  background-position: center;
+  background-size: cover;
+  border: transparent;
+  height: 40px;
+  width: 40px;
+}
