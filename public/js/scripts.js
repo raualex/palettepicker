@@ -6,23 +6,10 @@ function generateColors(event) {
   event.preventDefault()
 
   for (var i = 1; i < 6; i++) {
-    console.log(`color${i}`)
     if (!$(`.${i}`).hasClass('disabled')) {
       $(`.${i}`).css('background-color', makeRandomHex())
     }
   }
-
-  // if (!color1.hasClass('disabled')) {
-  //   $('.color1').css('background-color', checkForLock($('.color1')))
-  // }
-  // $('.color2').css('background-color', makeRandomHex())
-  // $('.color3').css('background-color', makeRandomHex())
-  // $('.color4').css('background-color', makeRandomHex())
-  // $('.color5').css('background-color', makeRandomHex())
-}
-
-function checkForLock(element) {
-
 }
 
 function makeRandomHex() {
