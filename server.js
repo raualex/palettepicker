@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser')
 const uuidv4 = require('uuid/v4');
 app.locals.projects = [];
-app.locals.palettes = [ { id: 2, title: 'ass', project_id: 11 }, { id: 23, title: 'kick ass', project_id: 9 } ];
+app.locals.palettes = [];
 
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 3000);
@@ -13,8 +13,8 @@ app.use(express.static('public'))
 
 app.get('/api/v1/projects', (request, response) => {
   const projects = app.locals.projects
-  return response.json({ projects })
-})
+  return response.json({ projects });
+});
 
 app.get('/api/v1/projects/:id', (request, response) => {
   const { id } = request.params
@@ -25,15 +25,23 @@ app.get('/api/v1/projects/:id', (request, response) => {
   } else {
     return response.sendStatus(404)
   }
-})
+});
 
 app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
   const project_id = parseInt(request.params.project_id)
- 
   const palettes = app.locals.palettes.filter(palette => palette.project_id === project_id);
+  
+  return response.json({ palettes });
+});
 
-  return response.json({ palettes })
-})
+app.post('/api/v1/projects/:project_id/palettes', (request, response) => {
+  const project_id = parseInt(request.params.project_id)
+  const id = uuidv4()
+  const palette = request.body;
+  
+  app.locals.palettes.push({ id, ...palette, project_id });
+  return response.status(201).json({ id, ...palette, project_id });
+});
 
 app.post('/api/v1/projects', (request, response) => {
   const id = uuidv4()
@@ -47,8 +55,8 @@ app.post('/api/v1/projects', (request, response) => {
     app.locals.projects.push({ id, ...project });
     return response.status(201).json({ id, ...project })
   }
-})
+});
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
-})
+});
