@@ -10,6 +10,13 @@ button:focus {
   outline: none;
 }
 
+form {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
 .color-container {
   align-items: center;
   border: solid 4px #000;
@@ -18,7 +25,6 @@ button:focus {
   justify-content: flex-end;
   margin: 25px;
   padding-right: 20px;
-  width: 50%;
 }
 
 .lock-btn {
@@ -33,4 +39,24 @@ button:focus {
 
 .locked {
   background-image: url("./../Images/001-padlock.svg");
+}
+
+.main-color-palette {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.main-page-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.saved-palettes {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
 }

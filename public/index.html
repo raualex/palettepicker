@@ -5,21 +5,25 @@
     <link rel="stylesheet" href="css/styles.css" type="text/css">
   </head>
   <body>
-    <section>
-      <div class="color-container 1"><button class="lock-btn"></button></div>
-      <div class="color-container 2"><button class="lock-btn"></button></div>
-      <div class="color-container 3"><button class="lock-btn"></button></div>
-      <div class="color-container 4"><button class="lock-btn"></button></div>
-      <div class="color-container 5"><button class="lock-btn"></button></div>
+    <section class="main-page-container">
+      <section class="main-color-palette">
+        <div class="color-container 1"><button class="lock-btn"></button></div>
+        <div class="color-container 2"><button class="lock-btn"></button></div>
+        <div class="color-container 3"><button class="lock-btn"></button></div>
+        <div class="color-container 4"><button class="lock-btn"></button></div>
+        <div class="color-container 5"><button class="lock-btn"></button></div>
+      </section>
+      <form>
+        <button class="generate-btn">Generate New Palette</button>
+        <h2>Save a New Project</h2>
+        <input type='text' class="" />
+        <button class="save-project-btn">SAVE</button>
+        <button class="save-palette-btn">Save Current Palette</button>
+      </form>
+      <section>
+        <h2>Saved Palettes</h2>
+      </section>
     </section>
-    <form>
-      <button class="generate-btn">Generate New Palette</button>
-      <h2>Save a New Project</h2>
-      <input type='text' class="" />
-      <button class="save-project-btn">SAVE</button>
-      <button class="save-palette-btn">Save Current Palette</button>
-    </form>
-    <h2>Saved Palettes</h2>
   </body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="js/scripts.js" type="text/javascript"></script>
