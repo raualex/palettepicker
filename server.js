@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const uuidv4 = require('uuid/v4');
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration);
 app.locals.projects = [];
 app.locals.palettes = [];
 
@@ -12,8 +15,13 @@ app.locals.title = 'Palette Picker'
 app.use(express.static('public'))
 
 app.get('/api/v1/projects', (request, response) => {
-  const projects = app.locals.projects
-  return response.json({ projects });
+  database('projects').select()
+    .then((projects) => {
+      response.status(200).json(projects);
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    })
 });
 
 app.get('/api/v1/projects/:id', (request, response) => {
@@ -44,17 +52,23 @@ app.post('/api/v1/projects/:project_id/palettes', (request, response) => {
 });
 
 app.post('/api/v1/projects', (request, response) => {
-  const id = uuidv4()
   const project = request.body;
 
-  if (!project) {
-    return response.status(422).send({
-      error: 'No project title provided'
-    })
-  } else {
-    app.locals.projects.push({ id, ...project });
-    return response.status(201).json({ id, ...project })
+  for (let requiredParameter of [ 'title' ]) {
+    if (!project[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected format: { title: <String> }.  You're missing a "${requiredParameter}" property.` })
+    }
   }
+
+  database('projects').insert(project, 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
 });
 
 app.listen(app.get('port'), () => {
