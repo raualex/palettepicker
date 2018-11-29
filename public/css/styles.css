@@ -2,8 +2,20 @@ body {
   margin: 0;
 }
 
+button {
+  cursor: pointer;
+}
+
 button:focus {
   outline: none;
+}
+
+form {
+  margin: 20px;
+}
+
+.color-hex {
+  visibility: hidden;
 }
 
 .color-container {
@@ -14,10 +26,27 @@ button:focus {
   justify-content: flex-end;
   margin: 25px;
   padding-right: 20px;
-  width: 50%;
+}
+
+.form-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  justify-content: center;
+  padding: 25px;
+}
+
+.generate-btn,
+.save-palette-btn {
+  width: 70%;
 }
 
 .lock-btn {
+  background-color: rgba(123, 123, 123, 0);
   background-image: url("./../Images/002-padlock-unlock.svg");
   background-position: center;
   background-size: cover;
@@ -28,4 +57,25 @@ button:focus {
 
 .locked {
   background-image: url("./../Images/001-padlock.svg");
+}
+
+.main-color-palette {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.main-page-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.saved-palettes {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  padding: 25px;
 }
