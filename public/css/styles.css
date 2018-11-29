@@ -14,6 +14,10 @@ form {
   margin: 20px;
 }
 
+.color-hex {
+  visibility: hidden;
+}
+
 .color-container {
   align-items: center;
   border: solid 4px #000;
@@ -34,6 +38,11 @@ form {
   grid-row-end: 2;
   justify-content: center;
   padding: 25px;
+}
+
+.generate-btn,
+.save-palette-btn {
+  width: 70%;
 }
 
 .lock-btn {
