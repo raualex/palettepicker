@@ -25,8 +25,16 @@ function makeRandomHex(num) {
 }
 
 function toggleLock(event) {
-  let lockBtn = $(event.target).children()
-  let lockContainer = $(event.target)
+  let lockBtn;
+  let lockContainer;
+
+  if ($(event.target).hasClass('color-container')) {
+    lockBtn = $(event.target).children()
+    lockContainer = $(event.target)
+  } else {
+    lockBtn = $(event.target)
+    lockContainer = $(event.target.parentNode)
+  }
 
   lockBtn.toggleClass('locked')
   lockContainer.toggleClass('disabled')
