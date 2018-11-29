@@ -1,5 +1,5 @@
 $(window).on('load', generateColors);
-$('.lock-btn').on('click', toggleLock);
+$('.color-container').on('click', toggleLock);
 $('.generate-btn').on('click', generateColors);
 $('.save-project-btn').on('click', saveProject);
 
@@ -25,8 +25,8 @@ function makeRandomHex(num) {
 }
 
 function toggleLock(event) {
-  let lockBtn = $(event.target)
-  let lockContainer = $(event.target.parentNode)
+  let lockBtn = $(event.target).children()
+  let lockContainer = $(event.target)
 
   lockBtn.toggleClass('locked')
   lockContainer.toggleClass('disabled')
