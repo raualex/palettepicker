@@ -43,6 +43,7 @@ function toggleLock(event) {
 function saveProject(event) {
   event.preventDefault()
   let name = $('.project-title-input').val()
+  $('.project-title-input').val('')
   
 	fetch('/api/v1/projects', {
     method: 'POST',
@@ -52,5 +53,5 @@ function saveProject(event) {
     }
 	})
 		.then(response => console.log(response))
-		.catch(error => console.log(error))
+    .catch(error => console.log(error))
 }
