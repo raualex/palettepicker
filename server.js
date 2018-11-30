@@ -26,13 +26,14 @@ app.get('/api/v1/projects', (request, response) => {
 
 app.get('/api/v1/projects/:id', (request, response) => {
   const { id } = request.params
-  const project = app.locals.projects.find(proj => proj.id === id);
   
-  if (project) {
-    return response.status(200).json(project)
-  } else {
-    return response.sendStatus(404)
-  }
+  database('projects').where('id', id).select()
+    .then((projects) => {
+      response.status(200).json(projects);
+    })
+    .catch((error) => {
+      response.status(500).json({ error });
+    })
 });
 
 app.get('/api/v1/projects/:project_id/palettes', (request, response) => {
