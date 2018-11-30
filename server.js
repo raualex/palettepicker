@@ -5,8 +5,6 @@ const uuidv4 = require('uuid/v4');
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
-app.locals.projects = [];
-app.locals.palettes = [];
 
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 3000);
@@ -48,6 +46,26 @@ app.get('/api/v1/palettes/:project_id', (request, response) => {
     })
 });
 
+app.post('/api/v1/projects', (request, response) => {
+  const project = request.body;
+
+  for (let requiredParameter of [ 'title' ]) {
+    if (!project[requiredParameter]) {
+      return response
+        .status(422)
+        .send({ error: `Expected format: { title: <String> }.  You're missing a "${requiredParameter}" property.` })
+    }
+  }
+
+  database('projects').insert(project, 'id')
+    .then(project => {
+      response.status(201).json({ id: project[0] })
+    })
+    .catch(error => {
+      response.status(500).json({ error })
+    })
+});
+
 app.post('/api/v1/palettes', (request, response) => {
   const project_id = parseInt(request.params.project_id)
   const palette = request.body;
@@ -69,25 +87,17 @@ app.post('/api/v1/palettes', (request, response) => {
     })
 });
 
-app.post('/api/v1/projects', (request, response) => {
-  const project = request.body;
+app.delete('/api/v1/palettes/:id', (request, response) => {
+  const { id } = request.params
 
-  for (let requiredParameter of [ 'title' ]) {
-    if (!project[requiredParameter]) {
-      return response
-        .status(422)
-        .send({ error: `Expected format: { title: <String> }.  You're missing a "${requiredParameter}" property.` })
-    }
-  }
-
-  database('projects').insert(project, 'id')
-    .then(project => {
-      response.status(201).json({ id: project[0] })
-    })
-    .catch(error => {
-      response.status(500).json({ error })
-    })
-});
+  database('palettes').where('id', id).del()
+   .then(id => {
+     response.status(200).json({ message: `Palette #${id} successfully removed.` })
+   })
+   .catch(error => {
+     response.status(500).json({ error })
+   })
+})
 
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
