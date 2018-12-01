@@ -2,6 +2,7 @@ $(window).on('load', generateColors);
 $('.color-container').on('click', toggleLock);
 $('.generate-btn').on('click', generateColors);
 $('.save-project-btn').on('click', saveProject);
+$('.save-palette-btn').on('click', saveColors)
 
 function generateColors(event) {
   event.preventDefault()
@@ -53,5 +54,38 @@ function saveProject(event) {
     }
 	})
 		.then(response => console.log(response))
+    .catch(error => console.log(error))
+}
+
+function saveColors(event) {
+  event.preventDefault()
+  let colors = []
+
+  for (var i = 0; i < 6; i++) {
+    if (i !== 0) {
+      let colorHex = $(`.text-${i}`).text()
+      colors.push(colorHex)
+    }
+  }
+  
+  savePalette(colors)
+}
+
+function savePalette(colorArr) {
+  fetch('/api/v1/palettes', {
+    method: 'POST',
+    body: JSON.stringify({ 
+      color1: colorArr[0],
+      color2: colorArr[1],
+      color3: colorArr[2],
+      color4: colorArr[3],
+      color5: colorArr[4],
+      project_id: 1
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => console.log(response))
     .catch(error => console.log(error))
 }
