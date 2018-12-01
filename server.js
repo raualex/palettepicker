@@ -91,7 +91,7 @@ app.delete('/api/v1/palettes/:id', (request, response) => {
   const { id } = request.params
 
   database('palettes').where('id', id).del()
-   .then(id => {
+   .then(() => {
      response.status(200).json({ message: `Palette #${id} successfully removed.` })
    })
    .catch(error => {
