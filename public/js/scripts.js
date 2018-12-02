@@ -6,6 +6,7 @@ $('.save-palette-btn').on('click', saveColors)
 
 function generateColors(event) {
   event.preventDefault()
+  getProjectsForDisplay()
 
   for (var i = 1; i < 6; i++) {
     if (!$(`.${i}`).hasClass('disabled')) {
@@ -60,6 +61,7 @@ async function saveProject(event) {
   catch(error) {
     console.log(error)
   }
+  getProjectsForDisplay()
 }
 
 function displayProject(num, title) {
@@ -103,4 +105,21 @@ function savePalette(colorArr) {
       .then(response => console.log(response))
       .catch(error => console.log(error))
   }
+}
+
+async function getProjectsForDisplay() {
+  const response = await fetch('/api/v1/projects')
+  const data = await response.json()
+  displayProjects(data)
+}
+
+function displayProjects(projects) {
+  let projectCards = projects.map((proj) => {
+    return `<div>
+      <h3>${proj.title}</h3>
+        <ul>
+        </ul>
+    </div>`
+  })
+  $('.saved-project-container').html(projectCards.join(''))
 }
