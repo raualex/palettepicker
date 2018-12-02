@@ -72,6 +72,14 @@ form {
   grid-template-rows: repeat(2, 1fr);
 }
 
+.project-id {
+  visibility: hidden;
+}
+
+.project-title-display {
+  text-transform: capitalize;
+}
+
 .saved-palettes {
   grid-column-start: 2;
   grid-column-end: 3;

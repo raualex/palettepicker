@@ -41,20 +41,30 @@ function toggleLock(event) {
   lockContainer.toggleClass('disabled')
 }
 
-function saveProject(event) {
+async function saveProject(event) {
   event.preventDefault()
   let name = $('.project-title-input').val()
   $('.project-title-input').val('')
   
-	fetch('/api/v1/projects', {
-    method: 'POST',
-    body: JSON.stringify({ title: name }),
-    headers:{
-      'Content-Type': 'application/json'
-    }
-	})
-		.then(response => console.log(response))
-    .catch(error => console.log(error))
+  try {
+	  const response = await fetch('/api/v1/projects', {
+      method: 'POST',
+      body: JSON.stringify({ title: name }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+  	})
+    const data = await response.json()
+    displayProject(data, name)
+  }
+  catch(error) {
+    console.log(error)
+  }
+}
+
+function displayProject(num, title) {
+  $('.project-title-display').text(title)
+  $('.project-id').text(num.id)
 }
 
 function saveColors(event) {
