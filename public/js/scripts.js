@@ -113,13 +113,53 @@ async function getProjectsForDisplay() {
   displayProjects(data)
 }
 
-function displayProjects(projects) {
+async function displayProjects(projects) {
+  let projIds = [];
+
   let projectCards = projects.map((proj) => {
+    projIds.push(proj.id)
     return `<div>
       <h3>${proj.title}</h3>
-        <ul>
-        </ul>
+        <div class="palette-${proj.id} palette-tab">
+        </div>
     </div>`
   })
   $('.saved-project-container').html(projectCards.join(''))
+  let palettes = await getPalettesForDisplay(projIds)
+  await displayPalettes(palettes)
+}
+
+async function getPalettesForDisplay(idArr) {
+  let unresolvedPalettes = idArr.map(async (id) => {
+    let response = await fetch(`/api/v1/palettes/${id}`)
+    let data = response.json()
+    return data
+  })
+  let palettes = await Promise.all(unresolvedPalettes)
+  return palettes
+}
+
+function displayPalettes(palettes) {
+  let paletteCards = palettes.map((palette) => {
+    return printPalettes(palette)
+  })
+  
+  // paletteCards.forEach((card) => {
+  //   if (card.hasClass())
+  // })
+  // console.log(paletteCards)
+}
+
+function printPalettes(palette) {
+  return palette.map((proj) => {
+    let savedCard = `<div class="saved-container ${proj.project_id}">
+      <div class="thumbnail tab-1" style="background-color: ${proj.color1}"></div>
+      <div class="thumbnail tab-2" style="background-color: ${proj.color2}"></div>
+      <div class="thumbnail tab-3" style="background-color: ${proj.color3}"></div>
+      <div class="thumbnail tab-4" style="background-color: ${proj.color4}"></div>
+      <div class="thumbnail tab-5" style="background-color: ${proj.color5}"></div>
+    </div>`
+    console.log(savedCard)
+    $(`.palette-${proj.project_id}`).append(savedCard)
+  })
 }
