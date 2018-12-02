@@ -28,6 +28,16 @@ form {
   padding-right: 20px;
 }
 
+.delete-btn {
+  background-image: url("./../Images/delete.svg");
+  background-position: center;
+  background-size: cover;
+  border: transparent;
+  border-radius: 150%;
+  height: 30px;
+  width: 30px;
+}
+
 .form-container {
   align-items: center;
   display: flex;
@@ -86,6 +96,7 @@ form {
 }
 
 .saved-container {
+  align-items: center;
   display: flex;
   justify-content: space-around;
   margin: 10px;

@@ -105,6 +105,9 @@ function savePalette(colorArr) {
       .then(response => console.log(response))
       .catch(error => console.log(error))
   }
+
+  $('.saved-container').html('')
+  getProjectsForDisplay()
 }
 
 async function getProjectsForDisplay() {
@@ -140,14 +143,9 @@ async function getPalettesForDisplay(idArr) {
 }
 
 function displayPalettes(palettes) {
-  let paletteCards = palettes.map((palette) => {
+  palettes.map((palette) => {
     return printPalettes(palette)
   })
-  
-  // paletteCards.forEach((card) => {
-  //   if (card.hasClass())
-  // })
-  // console.log(paletteCards)
 }
 
 function printPalettes(palette) {
@@ -158,8 +156,13 @@ function printPalettes(palette) {
       <div class="thumbnail tab-3" style="background-color: ${proj.color3}"></div>
       <div class="thumbnail tab-4" style="background-color: ${proj.color4}"></div>
       <div class="thumbnail tab-5" style="background-color: ${proj.color5}"></div>
+      <button class="delete-btn" onclick="deleteCard(event)"></button>
     </div>`
-    console.log(savedCard)
+
     $(`.palette-${proj.project_id}`).append(savedCard)
   })
+}
+
+function deleteCard(event) {
+  console.log(event.target.parentNode)
 }
