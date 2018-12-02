@@ -69,7 +69,27 @@ form {
 .main-page-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: 40%, 60%;
+}
+
+.palette-tab {
+  display: flex;
+  justify-content: space-around;
+}
+
+.project-id {
+  visibility: hidden;
+}
+
+.project-title-display {
+  text-transform: capitalize;
+}
+
+.saved-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  width: 40%;
 }
 
 .saved-palettes {
@@ -78,4 +98,10 @@ form {
   grid-row-start: 2;
   grid-row-end: 3;
   padding: 25px;
+}
+
+.thumbnail {
+  border: solid 1px #000;
+  height: 30px;
+  width: 30px;
 }
