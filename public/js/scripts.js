@@ -77,25 +77,30 @@ function saveColors(event) {
       colors.push(colorHex)
     }
   }
-  
   savePalette(colors)
 }
 
 function savePalette(colorArr) {
-  fetch('/api/v1/palettes', {
-    method: 'POST',
-    body: JSON.stringify({ 
-      color1: colorArr[0],
-      color2: colorArr[1],
-      color3: colorArr[2],
-      color4: colorArr[3],
-      color5: colorArr[4],
-      project_id: 1
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => console.log(response))
-    .catch(error => console.log(error))
+  let projId = $('.project-id').text()
+
+  if (!projId) {
+    return
+  } else {
+    fetch('/api/v1/palettes', {
+      method: 'POST',
+      body: JSON.stringify({ 
+        color1: colorArr[0],
+        color2: colorArr[1],
+        color3: colorArr[2],
+        color4: colorArr[3],
+        color5: colorArr[4],
+        project_id: projId
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => console.log(response))
+      .catch(error => console.log(error))
+  }
 }
