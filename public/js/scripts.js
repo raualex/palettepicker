@@ -2,7 +2,7 @@ $(window).on('load', generateColors);
 $('.color-container').on('click', toggleLock);
 $('.generate-btn').on('click', generateColors);
 $('.save-project-btn').on('click', saveProject);
-$('.save-palette-btn').on('click', saveColors)
+$('.save-palette-btn').on('click', saveColors);
 
 function generateColors(event) {
   event.preventDefault()
@@ -105,6 +105,9 @@ function savePalette(colorArr) {
       .then(response => console.log(response))
       .catch(error => console.log(error))
   }
+
+  $('.saved-container').html('')
+  getProjectsForDisplay()
 }
 
 async function getProjectsForDisplay() {
@@ -119,7 +122,7 @@ async function displayProjects(projects) {
   let projectCards = projects.map((proj) => {
     projIds.push(proj.id)
     return `<div>
-      <h3>${proj.title}</h3>
+      <h3 class="proj-title" data-id=${proj.id} onclick="changeSelectedProject(event)">${proj.title}</h3>
         <div class="palette-${proj.id} palette-tab">
         </div>
     </div>`
@@ -140,26 +143,66 @@ async function getPalettesForDisplay(idArr) {
 }
 
 function displayPalettes(palettes) {
-  let paletteCards = palettes.map((palette) => {
+  palettes.map((palette) => {
     return printPalettes(palette)
   })
-  
-  // paletteCards.forEach((card) => {
-  //   if (card.hasClass())
-  // })
-  // console.log(paletteCards)
 }
 
 function printPalettes(palette) {
   return palette.map((proj) => {
-    let savedCard = `<div class="saved-container ${proj.project_id}">
-      <div class="thumbnail tab-1" style="background-color: ${proj.color1}"></div>
-      <div class="thumbnail tab-2" style="background-color: ${proj.color2}"></div>
-      <div class="thumbnail tab-3" style="background-color: ${proj.color3}"></div>
-      <div class="thumbnail tab-4" style="background-color: ${proj.color4}"></div>
-      <div class="thumbnail tab-5" style="background-color: ${proj.color5}"></div>
+    let savedCard = `<div class="saved-container ${proj.project_id}" data-id=${proj.id} onclick="postColorsToMainDisplay(event)">
+      <div class="thumbnail tab-1" style="background-color: ${proj.color1}" onclick="postColorsToMainDisplay(event)"></div>
+      <div class="thumbnail tab-2" style="background-color: ${proj.color2}" onclick="postColorsToMainDisplay(event)"></div>
+      <div class="thumbnail tab-3" style="background-color: ${proj.color3}" onclick="postColorsToMainDisplay(event)"></div>
+      <div class="thumbnail tab-4" style="background-color: ${proj.color4}" onclick="postColorsToMainDisplay(event)"></div>
+      <div class="thumbnail tab-5" style="background-color: ${proj.color5}" onclick="postColorsToMainDisplay(event)"></div>
+      <button class="delete-btn" onclick="deleteCard(event)"></button>
     </div>`
-    console.log(savedCard)
+
     $(`.palette-${proj.project_id}`).append(savedCard)
   })
+}
+
+async function deleteCard(event) {
+  let cardId = $(event.target).parent().data('id')
+  
+  try {
+	  const response = await fetch(`/api/v1/palettes/${cardId}`, {
+      method: 'DELETE',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+  	})
+    const data = await response.json()
+    console.log(data)
+    getProjectsForDisplay()
+  }
+  catch(error) {
+    console.log(error)
+  }
+}
+
+function postColorsToMainDisplay(event) {
+  let colorArr = [];
+
+  if ($(event.target).hasClass('saved-container')) {
+    for (var i = 1; i < 6; i++) {
+      colorArr.push($(event.target).find(`.tab-${i}`).css('backgroundColor'))
+    }
+  } else if ($(event.target).hasClass('thumbnail')) {
+    for (var i = 1; i < 6; i++) {
+      colorArr.push($(event.target.parentNode).find(`.tab-${i}`).css('backgroundColor'))
+    }
+  }
+
+  for (var i = 1; i < 6; i++) {
+    var h = i - 1
+    $(`.${i}`).css('background-color', colorArr[`${h}`])
+  }
+}
+
+function changeSelectedProject(event) {
+  let name = $(event.target).text()
+  let data = { id: $(event.target).data('id')}
+  displayProject(data, name)
 }

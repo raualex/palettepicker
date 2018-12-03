@@ -1,4 +1,5 @@
 body {
+  font-family: 'Roboto', sans-serif;
   margin: 0;
 }
 
@@ -28,6 +29,20 @@ form {
   padding-right: 20px;
 }
 
+.current-project {
+  margin-top: 0;
+}
+
+.delete-btn {
+  background-image: url("./../Images/delete.svg");
+  background-position: center;
+  background-size: cover;
+  border: transparent;
+  border-radius: 150%;
+  height: 30px;
+  width: 30px;
+}
+
 .form-container {
   align-items: center;
   display: flex;
@@ -42,7 +57,17 @@ form {
 
 .generate-btn,
 .save-palette-btn {
+  background-color: #006700;
+  color: #fff;
+  font-weight: 700;
+  height: 30px;
   width: 70%;
+}
+
+.generate-btn:active,
+.save-palette-btn:active {
+  background-color: #00ff00;
+  color: #000;
 }
 
 .lock-btn {
@@ -69,11 +94,12 @@ form {
 .main-page-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 40%, 60%;
+  grid-template-rows: 10vh, 90vh;
 }
 
 .palette-tab {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
 }
 
@@ -85,7 +111,12 @@ form {
   text-transform: capitalize;
 }
 
+.proj-title {
+  cursor: pointer;
+}
+
 .saved-container {
+  align-items: center;
   display: flex;
   justify-content: space-around;
   margin: 10px;
@@ -97,6 +128,7 @@ form {
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 3;
+  overflow-y: scroll;
   padding: 25px;
 }
 

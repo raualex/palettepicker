@@ -3,6 +3,7 @@
   <head>
     <title>Palette Picker</title>
     <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
   <body>
     <section class="main-page-container">
@@ -14,7 +15,7 @@
         <div class="color-container 5"><h1 class="color-hex text-5"></h1><button class="lock-btn"></button></div>
       </section>
       <section class="form-container">
-        <h1>Current Project: <span class="project-title-display">(None Selected)</span><span class="project-id"></span></h1>
+        <h1 class="current-project">Current Project: <span class="project-title-display">(None Selected)</span><span class="project-id"></span></h1>
         <button class="generate-btn">Generate New Palette</button>
         <h2>Save a New Project</h2>
         <form class="save-project-form">
@@ -24,7 +25,8 @@
         <button class="save-palette-btn">Save Current Palette</button>
       </section>
       <section class="saved-palettes">
-        <h2>Saved Palettes</h2>
+        <h2>Saved Palettes: </h2>
+        <h4>(Click the Project Title to Select that Project - Click pallette to display on left)</h4>
         <div class="saved-project-container"></div>
       </section>
     </section>
