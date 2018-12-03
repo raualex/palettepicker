@@ -96,6 +96,10 @@ form {
   text-transform: capitalize;
 }
 
+.proj-title {
+  cursor: pointer;
+}
+
 .saved-container {
   align-items: center;
   display: flex;

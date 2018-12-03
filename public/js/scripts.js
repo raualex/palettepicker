@@ -122,7 +122,7 @@ async function displayProjects(projects) {
   let projectCards = projects.map((proj) => {
     projIds.push(proj.id)
     return `<div>
-      <h3>${proj.title}</h3>
+      <h3 class="proj-title" data-id=${proj.id} onclick="changeSelectedProject(event)">${proj.title}</h3>
         <div class="palette-${proj.id} palette-tab">
         </div>
     </div>`
@@ -199,4 +199,10 @@ function postColorsToMainDisplay(event) {
     var h = i - 1
     $(`.${i}`).css('background-color', colorArr[`${h}`])
   }
+}
+
+function changeSelectedProject(event) {
+  let name = $(event.target).text()
+  let data = { id: $(event.target).data('id')}
+  displayProject(data, name)
 }
