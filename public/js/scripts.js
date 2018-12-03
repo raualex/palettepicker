@@ -150,7 +150,7 @@ function displayPalettes(palettes) {
 
 function printPalettes(palette) {
   return palette.map((proj) => {
-    let savedCard = `<div class="saved-container ${proj.project_id}">
+    let savedCard = `<div class="saved-container ${proj.project_id}" data-id=${proj.id}>
       <div class="thumbnail tab-1" style="background-color: ${proj.color1}"></div>
       <div class="thumbnail tab-2" style="background-color: ${proj.color2}"></div>
       <div class="thumbnail tab-3" style="background-color: ${proj.color3}"></div>
@@ -163,6 +163,21 @@ function printPalettes(palette) {
   })
 }
 
-function deleteCard(event) {
-  console.log(event.target.parentNode)
+async function deleteCard(event) {
+  let cardId = $(event.target).parent().data('id')
+  
+  try {
+	  const response = await fetch(`/api/v1/palettes/${cardId}`, {
+      method: 'DELETE',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+  	})
+    const data = await response.json()
+    console.log(data)
+    getProjectsForDisplay()
+  }
+  catch(error) {
+    console.log(error)
+  }
 }
